@@ -10,6 +10,9 @@ namespace CarFactory
         public string GetBrand() => brand;
         public int GetSeats() => seats;
         public abstract string GetDescription();
+        public abstract string GetTransmissionType();
+        public abstract string GetEngineType();
+        public abstract string GetEntertainmentSystem();
     }
     
     public abstract class ElectricCar(string brand, int seats, int range, string batteryType) : ACar(brand, seats), IElectric
@@ -20,9 +23,13 @@ namespace CarFactory
         public string GetBatteryInfo() => $"{batteryType} аккумулятор";
         public int GetRange() => range;
         
+        public override string GetTransmissionType() => "Автоматическая (одноступенчатая) КПП";
+        public override string GetEngineType() => $"Электрический двигатель, {batteryType} аккумулятор, запас хода: {range} км";
+        public override string GetEntertainmentSystem() => "Мультимедийная система с сенсорным экраном, Apple CarPlay, Android Auto";
+        
         public override string GetDescription()
         {
-            return $"{brand}: электромобиль с автоматической коробкой передач, {seats} мест, запас хода: {range} км, {batteryType} аккумулятор";
+            return $"{brand}: электромобиль, {GetTransmissionType()}, {seats} мест, {GetEngineType()}, мультимедиа: {GetEntertainmentSystem()}";
         }
     }
     
@@ -30,23 +37,28 @@ namespace CarFactory
     {
         protected string transmissionType = transmissionType;
 
-        public string GetTransmissionType() => transmissionType;
+        public override string GetTransmissionType() => $"{transmissionType} КПП";
+        public override string GetEngineType() => "Бензиновый двигатель внутреннего сгорания";
+        public override string GetEntertainmentSystem() => "Базовая аудиосистема с Bluetooth";
         
         public override string GetDescription()
         {
-            return $"{brand}: автомобиль с {transmissionType} коробкой передач, {seats} мест";
+            return $"{brand}: автомобиль с {GetTransmissionType()}, {seats} мест, {GetEngineType()}, мультимедиа: {GetEntertainmentSystem()}";
         }
     }
+    
     public abstract class AutomaticCar(string brand, int seats, string transmissionType) : ACar(brand, seats), IAutomatical
     {
         protected string transmissionType = transmissionType;
 
-        public string GetTransmissionType() => transmissionType;
+        public override string GetTransmissionType() => $"{transmissionType} КПП";
+        public override string GetEngineType() => "Бензиновый двигатель внутреннего сгорания";
+        public override string GetEntertainmentSystem() => "Мультимедийная система с навигацией, Apple CarPlay, Android Auto, премиальная аудиосистема";
         public bool HasAutomaticTransmission() => true;
         
         public override string GetDescription()
         {
-            return $"{brand}: автомобиль с автоматической коробкой передач, {seats} мест";
+            return $"{brand}: автомобиль с {GetTransmissionType()}, {seats} мест, {GetEngineType()}, мультимедиа: {GetEntertainmentSystem()}";
         }
     }
 }

@@ -38,7 +38,7 @@ namespace CarFactory
                     try
                     {
                         ICar car = CarFactory.CreateCar(carType);
-                        Console.WriteLine($"«{car.GetDescription()}»");
+                        Console.WriteLine($"Описание: «{car.GetDescription()}»");
                     }
                     catch (Exception ex)
                     {
